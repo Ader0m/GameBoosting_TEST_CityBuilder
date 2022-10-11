@@ -1,20 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 internal class BuildLogick
 {
-    private BuildInterface _buildInterface;
     private SizeBuildEnum sizeBuild;
+    private Camera _myCamera;
+    private BuildInterface _buildInterface;
     private Cell cell;
-    private Vector3 _pos;
-    private Vector2 _lastCell;
     private Ray _ray;
     private RaycastHit _hit;
+    private Vector3 _pos;
+    private Vector2 _lastCell;
     private uint _lastClick;
     private bool _accept;
+
 
     public BuildLogick(BuildInterface buildInterface)
     {
@@ -27,10 +27,12 @@ internal class BuildLogick
 
     public void BuildLogickFunc()
     {
-        _ray = PlayerCamera.Instance.GetMyCamera().ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(_ray, out _hit, 30f))
-            PrepaireBuild();
+        if (PlayerCamera.Instance.TryGetMyCamera(out _myCamera))
+        {
+            _ray = _myCamera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(_ray, out _hit, 30f))
+                PrepaireBuild();
+        }            
 
         if (InputListener.Instance.RaycastBytton != _lastClick && _accept && !EventSystem.current.IsPointerOverGameObject())
         {
@@ -67,7 +69,7 @@ internal class BuildLogick
                     case (true, false, false):
                         {
                             sizeBuild = SizeBuildEnum.SmallBuilding;
-                            if (GameFieldModel.Instance.CheckClearSpaceForBuilding(_lastCell, SizeBuildEnum.SmallBuilding))
+                            if (GameFieldLogick.Instance.CheckClearSpaceForBuilding(_lastCell, SizeBuildEnum.SmallBuilding))
                             {
                                 
                                 _buildInterface.CurrentTemplate = MonoBehaviour.Instantiate(_buildInterface.GreenTemplate);
@@ -86,7 +88,7 @@ internal class BuildLogick
                     case (false, true, false):
                         {
                             sizeBuild = SizeBuildEnum.MediumBuilding;
-                            if (GameFieldModel.Instance.CheckClearSpaceForBuilding(_lastCell, SizeBuildEnum.MediumBuilding))
+                            if (GameFieldLogick.Instance.CheckClearSpaceForBuilding(_lastCell, SizeBuildEnum.MediumBuilding))
                             {
                    
                                 _buildInterface.CurrentTemplate = MonoBehaviour.Instantiate(_buildInterface.GreenTemplate);
@@ -105,7 +107,7 @@ internal class BuildLogick
                     case (false, false, true):
                         {
                             sizeBuild = SizeBuildEnum.LargeBuilding;
-                            if (GameFieldModel.Instance.CheckClearSpaceForBuilding(_lastCell, SizeBuildEnum.LargeBuilding))
+                            if (GameFieldLogick.Instance.CheckClearSpaceForBuilding(_lastCell, SizeBuildEnum.LargeBuilding))
                             {
                                 
                                 _buildInterface.CurrentTemplate = MonoBehaviour.Instantiate(_buildInterface.GreenTemplate);

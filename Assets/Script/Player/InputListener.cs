@@ -45,7 +45,7 @@ public class InputListener : MonoBehaviour
 
     #endregion
 
-    void Start()
+    void Awake()
     {
         _raycastButton = 0;
         _movementVector = new Vector3();
@@ -69,9 +69,8 @@ public class InputListener : MonoBehaviour
     private void MoveInput()
     {
         _movementVector.x = Input.GetAxis("Horizontal");
-        //_movementVector.y = Input.GetKey("space") ? 1f : 0f;
+        //_movementVector.y = Input.GetKey("space") ? 1f : 0f; ёнити не хочет читать пробел ни в каком виде
         //_movementVector.y = Input.GetKey(KeyCode.LeftControl) ? -1f : 0f;
-        _movementVector.z = Input.GetAxis("Vertical");
-        
+        _movementVector.z = Input.GetAxis("Vertical");      
     }
 }

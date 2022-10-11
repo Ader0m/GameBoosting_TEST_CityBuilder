@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 internal class Cell: MonoBehaviour
 {
@@ -26,11 +21,9 @@ internal class Cell: MonoBehaviour
     {           
         if (SpriteRender != null)
         {
-            SpriteRender.sprite = Game.Instance.CellSpriteMass[GameFieldModel.Instance.TypeGameFieldMass[(int)(transform.position.x * 100 + transform.position.z % 100)]];
-            TypeCell = (TypeCellEnum) GameFieldModel.Instance.TypeGameFieldMass[(int)(transform.position.x * 100 + transform.position.z % 100)];
+            SpriteRender.sprite = Game.Instance.CellSpriteMass[GameFieldLogick.Instance.TypeGameFieldMass[(int)(transform.position.x * 100 + transform.position.z % 100)]];
+            TypeCell = (TypeCellEnum) GameFieldLogick.Instance.TypeGameFieldMass[(int)(transform.position.x * 100 + transform.position.z % 100)];
         }
-    }
-            
-
+    }           
 }
 

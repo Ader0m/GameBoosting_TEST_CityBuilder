@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
-
+/// <summary>
+/// Принимает разные виды строений по интерфейсу IBuilding. Извлечение типа строения происходит по SizeBuildEnum
+/// </summary>
 [Serializable]
 internal class BuildingSerial : IBuilding
 {

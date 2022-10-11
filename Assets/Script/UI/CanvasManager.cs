@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -16,7 +15,6 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private Button _exitButton;
     [SerializeField] private Text _infoText;
     
-
 
     void Awake()
     {
@@ -38,6 +36,7 @@ public class CanvasManager : MonoBehaviour
         _menu.gameObject.SetActive(!_menu.gameObject.activeSelf);
         _gameInterface.gameObject.SetActive(!_gameInterface.gameObject.activeSelf);
         _buildInteface.gameObject.SetActive(false);
+        _buildInteface.gameObject.GetComponent<BuildInterface>().OffButton();
         _terraInteface.gameObject.SetActive(false);
 
         Destroy(_buildInteface.gameObject.GetComponent<BuildInterface>().CurrentTemplate);
@@ -46,7 +45,8 @@ public class CanvasManager : MonoBehaviour
     public void ShowBuildInteface()
     {
         _buildInteface.gameObject.SetActive(!_buildInteface.gameObject.activeSelf);
-        _buildButton.GetComponent<Outline>().enabled = !_buildButton.GetComponent<Outline>().enabled;
+        _buildInteface.gameObject.GetComponent<BuildInterface>().OffButton();
+        _buildButton.GetComponent<Outline>().enabled = !_buildButton.GetComponent<Outline>().enabled;        
         _terraButton.GetComponent<Outline>().enabled = false;
         _terraInteface.gameObject.SetActive(false);
 
@@ -56,6 +56,7 @@ public class CanvasManager : MonoBehaviour
     public void ShowTerraInteface()
     {
         _buildInteface.gameObject.SetActive(false);
+        _buildInteface.gameObject.GetComponent<BuildInterface>().OffButton();
         _buildButton.GetComponent<Outline>().enabled = false;
         _terraButton.GetComponent<Outline>().enabled = !_terraButton.GetComponent<Outline>().enabled;
         _terraInteface.gameObject.SetActive(!_terraInteface.gameObject.activeSelf);
@@ -72,9 +73,7 @@ public class CanvasManager : MonoBehaviour
 
     public void SaveWorld()
     {
-        Game.Instance.SaveWorld();
-
-        OnText("Игра сохранена");
+        Game.Instance.SaveWorldQuery();
     }
 
     public void LoadWorld()

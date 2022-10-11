@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -20,7 +18,7 @@ public class Player : MonoBehaviour
 
     #endregion
 
-    void Start()
+    void Awake()
     {
         _rb = GetComponent<Rigidbody>();        
         InputListener.Instance.SetPlayer(this);                

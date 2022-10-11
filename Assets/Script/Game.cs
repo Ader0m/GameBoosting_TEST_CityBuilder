@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
@@ -43,7 +41,11 @@ public class Game : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         if (LoadWorldFlag)
         {
-            LoadWorld();
+            if (!LoadWorld())
+            {
+                _canvasManager.OnText("Файл сохранения не найден или поврежден");
+                GenerateWorld();             
+            }
         }
         else
         {
@@ -57,7 +59,7 @@ public class Game : MonoBehaviour
     public void GenerateWorld()
     {
         IBuilder builder;
-        GameFieldModel gameField = new GameFieldModel(_gameFieldSize);
+        GameFieldLogick gameField = new GameFieldLogick(_gameFieldSize);
         _typeGeneration = UnityEngine.Random.Range(0, 2) == 0 ? false : true;
 
 
@@ -85,20 +87,45 @@ public class Game : MonoBehaviour
         obj.transform.position = new Vector3(_gameFieldSize / 2, 5, _gameFieldSize / 2);
     }
 
-    public void SaveWorld()
+    public void SaveWorldQuery()
     {
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath
-            + "/World.dat");
-
-        GameFieldModel.Serial serial = new GameFieldModel.Serial();
-        bf.Serialize(file, serial);
-        file.Close();
-
-        Debug.Log("SaveWorldFinish");
+        if (SaveWorld())
+        {
+            _canvasManager.OnText("Игра сохранена");
+        }
+        else
+        {
+            _canvasManager.OnText("Ошибка при сохранении");
+        }
     }
 
-    public bool LoadWorld()
+    private bool SaveWorld()
+    {
+        try
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Create(Application.persistentDataPath
+                + "/World.dat");
+
+            GameFieldLogick.GameFieldSerial serial = new GameFieldLogick.GameFieldSerial();
+            bf.Serialize(file, serial);
+            
+            file.Close();       
+            Debug.Log("SaveWorldFinish");
+
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError(ex);
+        }
+
+
+        return false;
+    }
+
+    private bool LoadWorld()
     {
         try
         {
@@ -109,8 +136,8 @@ public class Game : MonoBehaviour
                 FileStream file = File.Open(Application.persistentDataPath
                     + "/World.dat", FileMode.Open);              
 
-                GameFieldModel.Serial data = (GameFieldModel.Serial)bf.Deserialize(file);
-                GameFieldModel gameField = new GameFieldModel(data.SizeGameFieldSerial);
+                GameFieldLogick.GameFieldSerial data = (GameFieldLogick.GameFieldSerial)bf.Deserialize(file);
+                GameFieldLogick gameField = new GameFieldLogick(data.SizeGameFieldSerial);
                 gameField.TypeGameFieldMass = data.GameFieldMassSerial;                
                 foreach (IBuilding building in data.BuildingListSerial)
                 {

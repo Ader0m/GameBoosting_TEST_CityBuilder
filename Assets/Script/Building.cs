@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 
 internal class Building : MonoBehaviour, IBuilding
 {
     private Vector2 _point;
     private SizeBuildEnum _sizeBuild;
-
     
     #region Get/Set
 
@@ -44,7 +38,5 @@ internal class Building : MonoBehaviour, IBuilding
     }
 
     #endregion
-
-    
+   
 }
-

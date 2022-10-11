@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -41,14 +39,15 @@ public class BuildInterface: MonoBehaviour
         LargeButton.GetComponent<Outline>().enabled = true;
     }
 
+    public void OffButton()
+    {
+        SmallButton.GetComponent<Outline>().enabled = false;
+        MediumButton.GetComponent<Outline>().enabled = false;
+        LargeButton.GetComponent<Outline>().enabled = false;
+    }
+
     void Update()
     {        
         buildLogick.BuildLogickFunc();
-    }
-
-    public void Debug(float x, float z)
-    {
-        DebugText.gameObject.SetActive(true);
-        DebugText.text = x + " " + z;
     }
 }

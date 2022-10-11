@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
-internal class GameFieldModel
+internal class GameFieldLogick
 {
     #region Singleton
 
-    public static GameFieldModel Instance => _instance;
-    private static GameFieldModel _instance;
+    public static GameFieldLogick Instance => _instance;
+    private static GameFieldLogick _instance;
 
     #endregion
 
@@ -21,7 +18,7 @@ internal class GameFieldModel
     public readonly int SizeGameField;
 
 
-    public GameFieldModel(int size)
+    public GameFieldLogick(int size)
     {
         _instance = this;
         SizeGameField = size;
@@ -40,6 +37,11 @@ internal class GameFieldModel
         }
     }
 
+    /// <summary>
+    /// Выполняет все необходимые действия для регистрации в игре новых блоков города. Не создает здание
+    /// </summary>
+    /// <param name="point"> Точка установки </param>
+    /// <param name="size"> Тип здания </param>
     public void SetTownCell(Vector2 point, SizeBuildEnum size)
     {
         switch (size)
@@ -51,6 +53,7 @@ internal class GameFieldModel
                     BuildbleGameFieldMass[(int)(point.x * SizeGameField + point.y)] = false;
 
                     CellsMass[(int)(point.x * SizeGameField + point.y)].Refresh();
+
                     break;
                 }
             case SizeBuildEnum.MediumBuilding:
@@ -68,7 +71,8 @@ internal class GameFieldModel
                     CellsMass[(int)(point.x * SizeGameField + point.y)].Refresh();
                     CellsMass[(int)((point.x + 1) * SizeGameField + point.y)].Refresh();      
                     CellsMass[(int)((point.x + 1) * SizeGameField + (point.y + 1))].Refresh();
-                    CellsMass[(int)(point.x * SizeGameField + (point.y + 1))].Refresh();     
+                    CellsMass[(int)(point.x * SizeGameField + (point.y + 1))].Refresh();   
+                    
                     break;
                 }
             case SizeBuildEnum.LargeBuilding:
@@ -108,6 +112,11 @@ internal class GameFieldModel
         }
     }
 
+    /// <summary>
+    /// Выполняет все необходимые действия для удалении в игре блоков города. Не удаляет здание
+    /// </summary>
+    /// <param name="point"> Точка применения </param>
+    /// <param name="size"> Тип здания </param>
     public void ClearTownCell(Vector2 point, SizeBuildEnum size)
     {
         switch (size)
@@ -119,6 +128,7 @@ internal class GameFieldModel
                     BuildbleGameFieldMass[(int)(point.x * SizeGameField + point.y)] = true;
 
                     CellsMass[(int)(point.x * SizeGameField + point.y)].Refresh();
+
                     break;
                 }
             case SizeBuildEnum.MediumBuilding:
@@ -137,6 +147,7 @@ internal class GameFieldModel
                     CellsMass[(int)((point.x + 1) * SizeGameField + point.y)].Refresh();
                     CellsMass[(int)((point.x + 1) * SizeGameField + (point.y + 1))].Refresh();
                     CellsMass[(int)(point.x * SizeGameField + (point.y + 1))].Refresh();
+
                     break;
                 }
             case SizeBuildEnum.LargeBuilding:
@@ -170,14 +181,20 @@ internal class GameFieldModel
                     CellsMass[(int)((point.x - 1) * SizeGameField + (point.y - 1))].Refresh();
                     CellsMass[(int)(point.x * SizeGameField + (point.y - 1))].Refresh();
                     CellsMass[(int)((point.x + 1) * SizeGameField + (point.y - 1))].Refresh();
+
                     break;
                 }
         }
     }
 
+    /// <summary>
+    /// Проверяет можно ли в "эту" точку установить "это" здание
+    /// </summary>
+    /// <param name="point"> Точка применения </param>
+    /// <param name="size"> Тип здания </param>
+    /// <returns></returns>
     public bool CheckClearSpaceForBuilding(Vector2 point, SizeBuildEnum size)
     {
-
         switch (size)
         {
             case SizeBuildEnum.SmallBuilding:
@@ -186,10 +203,8 @@ internal class GameFieldModel
                     {
                         return true;
                     }
-                    else
-                    {
-                        return false;
-                    }
+
+                    return false;                
                 }
             case SizeBuildEnum.MediumBuilding:
                 {
@@ -202,6 +217,7 @@ internal class GameFieldModel
                         {
                             return true;
                         }
+
                     return false;
                 }
             case SizeBuildEnum.LargeBuilding:
@@ -220,6 +236,7 @@ internal class GameFieldModel
                         {
                             return true;
                         }
+
                     return false;
                 }
 
@@ -228,6 +245,10 @@ internal class GameFieldModel
         return false;
     }
 
+    /// <summary>
+    /// Выполняет все необходимые действия для регистрации в игре блока травы.
+    /// </summary>
+    /// <param name="point"> Точка применения </param>
     public void SetGrassCell(Vector2 point)
     {
         TypeGameFieldMass[(int)(point.x * SizeGameField + point.y)] = (int)TypeCellEnum.Grass;
@@ -237,6 +258,10 @@ internal class GameFieldModel
         CellsMass[(int)(point.x * SizeGameField + point.y)].Refresh();
     }
 
+    /// <summary>
+    /// Выполняет все необходимые действия для регистрации в игре блока песка.
+    /// </summary>
+    /// <param name="point"> Точка применения </param>
     public void SetSandCell(Vector2 point)
     {
         TypeGameFieldMass[(int)(point.x * SizeGameField + point.y)] = (int)TypeCellEnum.Sand;
@@ -246,6 +271,10 @@ internal class GameFieldModel
         CellsMass[(int)(point.x * SizeGameField + point.y)].Refresh();
     }
 
+    /// <summary>
+    /// Выполняет все необходимые действия для регистрации в игре блока болота.
+    /// </summary>
+    /// <param name="point"> Точка применения </param>
     public void SetSwampCell(Vector2 point)
     {
         TypeGameFieldMass[(int)(point.x * SizeGameField + point.y)] = (int)TypeCellEnum.Swamp;
@@ -255,6 +284,10 @@ internal class GameFieldModel
         CellsMass[(int)(point.x * SizeGameField + point.y)].Refresh();
     }
 
+    /// <summary>
+    /// Выполняет все необходимые действия для регистрации в игре блока воды.
+    /// </summary>
+    /// <param name="point"> Точка применения </param>
     public void SetWaterCell(Vector2 point)
     {
         TypeGameFieldMass[(int)(point.x * SizeGameField + point.y)] = (int)TypeCellEnum.Water;
@@ -265,27 +298,24 @@ internal class GameFieldModel
     }
 
     [Serializable]
-    public class Serial
+    public class GameFieldSerial
     {
         public int[] GameFieldMassSerial;
         public List<BuildingSerial> BuildingListSerial;
         public readonly int SizeGameFieldSerial;
 
-        public Serial()
+        public GameFieldSerial()
         {
             BuildingListSerial = new List<BuildingSerial>();
 
-            GameFieldMassSerial = GameFieldModel.Instance.TypeGameFieldMass;
-            foreach (GameObject building in GameFieldModel.Instance.BuildingList)
+            GameFieldMassSerial = GameFieldLogick.Instance.TypeGameFieldMass;
+            foreach (GameObject building in GameFieldLogick.Instance.BuildingList)
             {
                 IBuilding buildingSerial = building.GetComponent<IBuilding>();
                 BuildingListSerial.Add(buildingSerial.GetSerial());
             }
-            SizeGameFieldSerial = GameFieldModel.Instance.SizeGameField;
+            SizeGameFieldSerial = GameFieldLogick.Instance.SizeGameField;
         }
     }
-
-
-
 }
 

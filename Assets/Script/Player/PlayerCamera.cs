@@ -22,9 +22,18 @@ public class PlayerCamera : MonoBehaviour
 
     #region Get/Set
 
-    public Camera GetMyCamera()
+    public bool TryGetMyCamera(out Camera camera)
     {
-        return _myCamera;
+        if (_myCamera)
+        {
+            camera = _myCamera;
+            return true;
+        }
+        else
+        {
+            camera = null;
+            return false;
+        }
     }
 
     #endregion

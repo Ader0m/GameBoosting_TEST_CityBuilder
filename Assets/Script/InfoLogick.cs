@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 internal class InfoLogick
 {
     private InfoInterface _infoInterface;
+    private Camera _myCamera;
     private Ray _ray;
     private RaycastHit _hit;
     private IBuilding building;
@@ -29,27 +28,28 @@ internal class InfoLogick
     {
         if (InputListener.Instance.RaycastBytton != _lastClick && !EventSystem.current.IsPointerOverGameObject())
         {
-            _ray = PlayerCamera.Instance.GetMyCamera().ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(_ray, out _hit, 30f))
+            if (PlayerCamera.Instance.TryGetMyCamera(out _myCamera))
             {
-                if (_hit.collider.gameObject.TryGetComponent<IBuilding>(out building))
+                _ray = _myCamera.ScreenPointToRay(Input.mousePosition);
+
+                if (Physics.Raycast(_ray, out _hit, 30f))
                 {
-                    _infoInterface.InfoMenuPanel.gameObject.SetActive(true);
+                    if (_hit.collider.gameObject.TryGetComponent<IBuilding>(out building))
+                    {
+                        _infoInterface.InfoMenuPanel.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        _infoInterface.InfoMenuPanel.gameObject.SetActive(false);
+                    }
                 }
                 else
                 {
                     _infoInterface.InfoMenuPanel.gameObject.SetActive(false);
                 }
-            }
-            else
-            {
-                _infoInterface.InfoMenuPanel.gameObject.SetActive(false);
-            }
+            }         
         }
 
         _lastClick = InputListener.Instance.RaycastBytton;
     }
-
-
 }

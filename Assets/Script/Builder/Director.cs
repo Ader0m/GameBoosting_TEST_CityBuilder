@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
-internal class Director
+﻿internal class Director
 {
     private IBuilder _builder;    
 
@@ -20,7 +13,6 @@ internal class Director
     /// </summary>
     public void Construct()
     {
-
         _builder.BuildWaterCell();
         _builder.BuildSwampCell();       
         _builder.BuildSendCell();

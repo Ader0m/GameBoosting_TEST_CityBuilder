@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
-
 
 internal class TerraLogick
 {
     private TerraInterface _terraInterface;
+    private Camera _myCamera;
     private Ray _ray;
     private RaycastHit _hit;
     private Cell cell;
     private uint _lastClick;
+
 
     public TerraLogick(TerraInterface terraInterface)
     {
@@ -24,25 +19,29 @@ internal class TerraLogick
 
     public void TerraLogickFunc()
     {
-        _ray = PlayerCamera.Instance.GetMyCamera().ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(_ray, out _hit, 30f))
+        if(PlayerCamera.Instance.TryGetMyCamera(out _myCamera))
+        {
+            _ray = _myCamera.ScreenPointToRay(Input.mousePosition);                       
             StartTerraforming();
+        }
     }
 
     private void StartTerraforming()
     {
         if (InputListener.Instance.RaycastBytton != _lastClick && !EventSystem.current.IsPointerOverGameObject())
         {
-            if (_hit.collider.gameObject.TryGetComponent<Cell>(out cell))
+            if (Physics.Raycast(_ray, out _hit, 30f))
             {
-                if (cell.TypeCell == TypeCellEnum.Water)
+                if (_hit.collider.gameObject.TryGetComponent<Cell>(out cell))
                 {
-                    GameFieldModel.Instance.SetSwampCell(new Vector2(cell.transform.position.x, cell.transform.position.z));
-                }
-                else if (cell.TypeCell == TypeCellEnum.Swamp)
-                {
-                    GameFieldModel.Instance.SetSandCell(new Vector2(cell.transform.position.x, cell.transform.position.z));
+                    if (cell.TypeCell == TypeCellEnum.Water)
+                    {
+                        GameFieldLogick.Instance.SetSwampCell(new Vector2(cell.transform.position.x, cell.transform.position.z));
+                    }
+                    else if (cell.TypeCell == TypeCellEnum.Swamp)
+                    {
+                        GameFieldLogick.Instance.SetSandCell(new Vector2(cell.transform.position.x, cell.transform.position.z));
+                    }
                 }
             }
         }
