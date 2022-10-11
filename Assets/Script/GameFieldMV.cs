@@ -111,7 +111,7 @@ internal class GameFieldMV : MonoBehaviour
         }
 
         _barrier.transform.position = new Vector3(GameFieldModel.Instance.SizeGameField / 2, GameFieldModel.Instance.SizeGameField / 4, GameFieldModel.Instance.SizeGameField / 2);
-        _barrier.transform.localScale = new Vector3(GameFieldModel.Instance.SizeGameField, 15, GameFieldModel.Instance.SizeGameField);
+        _barrier.transform.localScale = new Vector3(GameFieldModel.Instance.SizeGameField, GameFieldModel.Instance.SizeGameField / 2, GameFieldModel.Instance.SizeGameField);
     }
 
     private void OnDestroy()
