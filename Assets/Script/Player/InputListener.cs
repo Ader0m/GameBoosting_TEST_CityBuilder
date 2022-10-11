@@ -13,10 +13,10 @@ public class InputListener : MonoBehaviour
     }
     private static InputListener _instance;
     #endregion
-
-    [SerializeField] private GameObject _menu;
+   
     [SerializeField] public float SENSIVITY = 850;
     [SerializeField] public float MOVEMENT_SPEED = 500;
+    [SerializeField] private GameObject _menu;
     private Player _player;
     private Vector3 _movementVector; 
     private uint _raycastButton;

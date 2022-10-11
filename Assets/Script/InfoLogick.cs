@@ -7,14 +7,14 @@ internal class InfoLogick
     private Camera _myCamera;
     private Ray _ray;
     private RaycastHit _hit;
-    private IBuilding building;
+    private IBuilding _building;
     private uint _lastClick;
 
     #region Get/Set
 
     public IBuilding GetBuilding()
     {
-        return building;
+        return _building;
     }
 
     #endregion
@@ -34,7 +34,7 @@ internal class InfoLogick
 
                 if (Physics.Raycast(_ray, out _hit, 30f))
                 {
-                    if (_hit.collider.gameObject.TryGetComponent<IBuilding>(out building))
+                    if (_hit.collider.gameObject.TryGetComponent<IBuilding>(out _building))
                     {
                         _infoInterface.InfoMenuPanel.gameObject.SetActive(true);
                     }
@@ -47,7 +47,7 @@ internal class InfoLogick
                 {
                     _infoInterface.InfoMenuPanel.gameObject.SetActive(false);
                 }
-            }         
+            }
         }
 
         _lastClick = InputListener.Instance.RaycastBytton;

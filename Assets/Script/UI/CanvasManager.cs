@@ -14,7 +14,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private Button _terraButton;
     [SerializeField] private Button _exitButton;
     [SerializeField] private Text _infoText;
-    
+
 
     void Awake()
     {
@@ -28,7 +28,7 @@ public class CanvasManager : MonoBehaviour
         {
             SwitchInterface();
             PlayerCamera.Instance.SwitchCamera();
-        }        
+        }
     }
 
     private void SwitchInterface()
@@ -46,7 +46,7 @@ public class CanvasManager : MonoBehaviour
     {
         _buildInteface.gameObject.SetActive(!_buildInteface.gameObject.activeSelf);
         _buildInteface.gameObject.GetComponent<BuildInterface>().OffButton();
-        _buildButton.GetComponent<Outline>().enabled = !_buildButton.GetComponent<Outline>().enabled;        
+        _buildButton.GetComponent<Outline>().enabled = !_buildButton.GetComponent<Outline>().enabled;
         _terraButton.GetComponent<Outline>().enabled = false;
         _terraInteface.gameObject.SetActive(false);
 
@@ -79,7 +79,7 @@ public class CanvasManager : MonoBehaviour
     public void LoadWorld()
     {
         Game.LoadWorldFlag = true;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);       
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void ExitApplication()

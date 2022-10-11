@@ -50,7 +50,7 @@ public class FlatBuilder : IBuilder
                     {
                         if (GameFieldLogick.Instance.CheckClearSpaceForBuilding(point, SizeBuildEnum.SmallBuilding))
                         {
-                            GameFieldMV.Instance.AddBuilding(point, SizeBuildEnum.SmallBuilding);
+                            GameFieldDraw.Instance.AddBuilding(point, SizeBuildEnum.SmallBuilding);
                             _currentCountSpawnObject++;
                         }
                         break;
@@ -60,7 +60,7 @@ public class FlatBuilder : IBuilder
                     {
                         if (GameFieldLogick.Instance.CheckClearSpaceForBuilding(point, SizeBuildEnum.MediumBuilding))
                         {
-                            GameFieldMV.Instance.AddBuilding(point, SizeBuildEnum.MediumBuilding);
+                            GameFieldDraw.Instance.AddBuilding(point, SizeBuildEnum.MediumBuilding);
                             _currentCountSpawnObject += 4;
                         }
                         break;
@@ -69,7 +69,7 @@ public class FlatBuilder : IBuilder
                     {
                         if (GameFieldLogick.Instance.CheckClearSpaceForBuilding(point, SizeBuildEnum.LargeBuilding))
                         {
-                            GameFieldMV.Instance.AddBuilding(point, SizeBuildEnum.LargeBuilding);
+                            GameFieldDraw.Instance.AddBuilding(point, SizeBuildEnum.LargeBuilding);
                             _currentCountSpawnObject += 9;
                             break;
                         }

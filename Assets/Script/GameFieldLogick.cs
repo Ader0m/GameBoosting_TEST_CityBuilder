@@ -26,14 +26,14 @@ internal class GameFieldLogick
         BuildbleGameFieldMass = new bool[SizeGameField * SizeGameField];
         CellsMass = new Cell[SizeGameField * SizeGameField];
         BuildingList = new List<GameObject>();
-        
+
 
         for (int i = 0; i < SizeGameField * SizeGameField; i++)
         {
             TypeGameFieldMass[i] = 0;
 
             // Для корректной работы нужно заполнить пустыми клетками
-            CellsMass[i] = new Cell();           
+            CellsMass[i] = new Cell();
         }
     }
 
@@ -58,53 +58,53 @@ internal class GameFieldLogick
                 }
             case SizeBuildEnum.MediumBuilding:
                 {
-                    TypeGameFieldMass[(int)(point.x * SizeGameField + point.y)]             = (int)TypeCellEnum.Town;                    
-                    TypeGameFieldMass[(int)((point.x + 1) * SizeGameField + point.y)]       = (int)TypeCellEnum.Town;                    
-                    TypeGameFieldMass[(int)((point.x + 1) * SizeGameField + (point.y + 1))] = (int)TypeCellEnum.Town;                    
-                    TypeGameFieldMass[(int)(point.x * SizeGameField + (point.y + 1))]       = (int)TypeCellEnum.Town;
+                    TypeGameFieldMass[(int)(point.x * SizeGameField + point.y)] = (int)TypeCellEnum.Town;
+                    TypeGameFieldMass[(int)((point.x + 1) * SizeGameField + point.y)] = (int)TypeCellEnum.Town;
+                    TypeGameFieldMass[(int)((point.x + 1) * SizeGameField + (point.y + 1))] = (int)TypeCellEnum.Town;
+                    TypeGameFieldMass[(int)(point.x * SizeGameField + (point.y + 1))] = (int)TypeCellEnum.Town;
 
-                    BuildbleGameFieldMass[(int)(point.x * SizeGameField + point.y)]             = false;
-                    BuildbleGameFieldMass[(int)((point.x + 1) * SizeGameField + point.y)]       = false;
+                    BuildbleGameFieldMass[(int)(point.x * SizeGameField + point.y)] = false;
+                    BuildbleGameFieldMass[(int)((point.x + 1) * SizeGameField + point.y)] = false;
                     BuildbleGameFieldMass[(int)((point.x + 1) * SizeGameField + (point.y + 1))] = false;
-                    BuildbleGameFieldMass[(int)(point.x * SizeGameField + (point.y + 1))]       = false;
+                    BuildbleGameFieldMass[(int)(point.x * SizeGameField + (point.y + 1))] = false;
 
                     CellsMass[(int)(point.x * SizeGameField + point.y)].Refresh();
-                    CellsMass[(int)((point.x + 1) * SizeGameField + point.y)].Refresh();      
+                    CellsMass[(int)((point.x + 1) * SizeGameField + point.y)].Refresh();
                     CellsMass[(int)((point.x + 1) * SizeGameField + (point.y + 1))].Refresh();
-                    CellsMass[(int)(point.x * SizeGameField + (point.y + 1))].Refresh();   
-                    
+                    CellsMass[(int)(point.x * SizeGameField + (point.y + 1))].Refresh();
+
                     break;
                 }
             case SizeBuildEnum.LargeBuilding:
                 {
-                    TypeGameFieldMass[(int)(point.x * SizeGameField + point.y)]             = (int)TypeCellEnum.Town; //центр                   
-                    TypeGameFieldMass[(int)((point.x + 1) * SizeGameField + point.y)]       = (int)TypeCellEnum.Town; //север                    
+                    TypeGameFieldMass[(int)(point.x * SizeGameField + point.y)] = (int)TypeCellEnum.Town; //центр                   
+                    TypeGameFieldMass[(int)((point.x + 1) * SizeGameField + point.y)] = (int)TypeCellEnum.Town; //север                    
                     TypeGameFieldMass[(int)((point.x + 1) * SizeGameField + (point.y + 1))] = (int)TypeCellEnum.Town; //северо-восток                    
-                    TypeGameFieldMass[(int)(point.x * SizeGameField + (point.y + 1))]       = (int)TypeCellEnum.Town; // восток                    
+                    TypeGameFieldMass[(int)(point.x * SizeGameField + (point.y + 1))] = (int)TypeCellEnum.Town; // восток                    
                     TypeGameFieldMass[(int)((point.x - 1) * SizeGameField + (point.y + 1))] = (int)TypeCellEnum.Town; // юго-восток                    
-                    TypeGameFieldMass[(int)((point.x - 1) * SizeGameField + point.y)]       = (int)TypeCellEnum.Town; // юг
+                    TypeGameFieldMass[(int)((point.x - 1) * SizeGameField + point.y)] = (int)TypeCellEnum.Town; // юг
                     TypeGameFieldMass[(int)((point.x - 1) * SizeGameField + (point.y - 1))] = (int)TypeCellEnum.Town; // юго-запад
-                    TypeGameFieldMass[(int)(point.x * SizeGameField + (point.y - 1))]       = (int)TypeCellEnum.Town; // запад
+                    TypeGameFieldMass[(int)(point.x * SizeGameField + (point.y - 1))] = (int)TypeCellEnum.Town; // запад
                     TypeGameFieldMass[(int)((point.x + 1) * SizeGameField + (point.y - 1))] = (int)TypeCellEnum.Town; // Северо-запад
 
                     BuildbleGameFieldMass[(int)(point.x * SizeGameField + point.y)] = false;
-                    BuildbleGameFieldMass[(int)((point.x + 1) * SizeGameField + point.y)]       = false;
+                    BuildbleGameFieldMass[(int)((point.x + 1) * SizeGameField + point.y)] = false;
                     BuildbleGameFieldMass[(int)((point.x + 1) * SizeGameField + (point.y + 1))] = false;
-                    BuildbleGameFieldMass[(int)(point.x * SizeGameField + (point.y + 1))]       = false;
+                    BuildbleGameFieldMass[(int)(point.x * SizeGameField + (point.y + 1))] = false;
                     BuildbleGameFieldMass[(int)((point.x - 1) * SizeGameField + (point.y + 1))] = false;
-                    BuildbleGameFieldMass[(int)((point.x - 1) * SizeGameField + point.y)]       = false;
+                    BuildbleGameFieldMass[(int)((point.x - 1) * SizeGameField + point.y)] = false;
                     BuildbleGameFieldMass[(int)((point.x - 1) * SizeGameField + (point.y - 1))] = false;
-                    BuildbleGameFieldMass[(int)(point.x * SizeGameField + (point.y - 1))]       = false;
+                    BuildbleGameFieldMass[(int)(point.x * SizeGameField + (point.y - 1))] = false;
                     BuildbleGameFieldMass[(int)((point.x + 1) * SizeGameField + (point.y - 1))] = false;
 
-                    CellsMass[(int)(point.x * SizeGameField + point.y)]            .Refresh();
-                    CellsMass[(int)((point.x + 1) * SizeGameField + point.y)]      .Refresh();
+                    CellsMass[(int)(point.x * SizeGameField + point.y)].Refresh();
+                    CellsMass[(int)((point.x + 1) * SizeGameField + point.y)].Refresh();
                     CellsMass[(int)((point.x + 1) * SizeGameField + (point.y + 1))].Refresh();
-                    CellsMass[(int)(point.x * SizeGameField + (point.y + 1))]      .Refresh();
+                    CellsMass[(int)(point.x * SizeGameField + (point.y + 1))].Refresh();
                     CellsMass[(int)((point.x - 1) * SizeGameField + (point.y + 1))].Refresh();
-                    CellsMass[(int)((point.x - 1) * SizeGameField + point.y)]      .Refresh();
+                    CellsMass[(int)((point.x - 1) * SizeGameField + point.y)].Refresh();
                     CellsMass[(int)((point.x - 1) * SizeGameField + (point.y - 1))].Refresh();
-                    CellsMass[(int)(point.x * SizeGameField + (point.y - 1))]      .Refresh();
+                    CellsMass[(int)(point.x * SizeGameField + (point.y - 1))].Refresh();
                     CellsMass[(int)((point.x + 1) * SizeGameField + (point.y - 1))].Refresh();
 
                     break;
@@ -124,7 +124,7 @@ internal class GameFieldLogick
             case SizeBuildEnum.SmallBuilding:
                 {
                     TypeGameFieldMass[(int)(point.x * SizeGameField + point.y)] = (int)TypeCellEnum.Sand;
-                    
+
                     BuildbleGameFieldMass[(int)(point.x * SizeGameField + point.y)] = true;
 
                     CellsMass[(int)(point.x * SizeGameField + point.y)].Refresh();
@@ -204,7 +204,7 @@ internal class GameFieldLogick
                         return true;
                     }
 
-                    return false;                
+                    return false;
                 }
             case SizeBuildEnum.MediumBuilding:
                 {
@@ -227,7 +227,7 @@ internal class GameFieldLogick
                             BuildbleGameFieldMass[(int)((point.x + 1) * SizeGameField + point.y)] &&      //север            
                             BuildbleGameFieldMass[(int)((point.x + 1) * SizeGameField + (point.y + 1))] && //северо-восток
                             BuildbleGameFieldMass[(int)(point.x * SizeGameField + (point.y + 1))] && // восток
-                            BuildbleGameFieldMass[(int)((point.x - 1) * SizeGameField + (point.y + 1))]  && // юго-восток
+                            BuildbleGameFieldMass[(int)((point.x - 1) * SizeGameField + (point.y + 1))] && // юго-восток
                             BuildbleGameFieldMass[(int)((point.x - 1) * SizeGameField + point.y)] && // юг
                             BuildbleGameFieldMass[(int)((point.x - 1) * SizeGameField + (point.y - 1))] && // юго-запад
                             BuildbleGameFieldMass[(int)(point.x * SizeGameField + (point.y - 1))] && // запад
@@ -300,9 +300,9 @@ internal class GameFieldLogick
     [Serializable]
     public class GameFieldSerial
     {
-        public int[] GameFieldMassSerial;
+        public int[]                GameFieldMassSerial;
         public List<BuildingSerial> BuildingListSerial;
-        public readonly int SizeGameFieldSerial;
+        public readonly int         SizeGameFieldSerial;
 
         public GameFieldSerial()
         {

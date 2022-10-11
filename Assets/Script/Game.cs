@@ -52,7 +52,7 @@ public class Game : MonoBehaviour
             GenerateWorld();
 
         }
-        GameFieldMV.Instance.DrawGameField(LoadWorldFlag);
+        GameFieldDraw.Instance.DrawGameField(LoadWorldFlag);
         LoadWorldFlag = false;
     }
 
@@ -141,7 +141,7 @@ public class Game : MonoBehaviour
                 gameField.TypeGameFieldMass = data.GameFieldMassSerial;                
                 foreach (IBuilding building in data.BuildingListSerial)
                 {
-                    GameFieldMV.Instance.AddBuilding(building.GetPoint(), building.GetSizeBuild());
+                    GameFieldDraw.Instance.AddBuilding(building.GetPoint(), building.GetSizeBuild());
                 }
 
                 file.Close();

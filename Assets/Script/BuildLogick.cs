@@ -4,10 +4,10 @@ using UnityEngine.UI;
 
 internal class BuildLogick
 {
-    private SizeBuildEnum sizeBuild;
+    private SizeBuildEnum _sizeBuild;
     private Camera _myCamera;
     private BuildInterface _buildInterface;
-    private Cell cell;
+    private Cell _cell;
     private Ray _ray;
     private RaycastHit _hit;
     private Vector3 _pos;
@@ -32,11 +32,11 @@ internal class BuildLogick
             _ray = _myCamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(_ray, out _hit, 30f))
                 PrepaireBuild();
-        }            
+        }
 
         if (InputListener.Instance.RaycastBytton != _lastClick && _accept && !EventSystem.current.IsPointerOverGameObject())
         {
-            Build();          
+            Build();
             _accept = false;
         }
 
@@ -45,21 +45,21 @@ internal class BuildLogick
 
     public void Build()
     {
-        GameFieldMV.Instance.AddBuilding(_lastCell, sizeBuild);        
+        GameFieldDraw.Instance.AddBuilding(_lastCell, _sizeBuild);
     }
 
     public void PrepaireBuild()
     {
-        
-        if (_hit.collider.gameObject.TryGetComponent<Cell>(out cell))
+
+        if (_hit.collider.gameObject.TryGetComponent<Cell>(out _cell))
         {
-           
-            _pos = cell.gameObject.transform.position;
+
+            _pos = _cell.gameObject.transform.position;
             if ((_lastCell.x != _pos.x || _lastCell.y != _pos.z) && _pos != null)
             {
                 _lastCell.x = _pos.x;
                 _lastCell.y = _pos.z;
-                 
+
                 MonoBehaviour.Destroy(_buildInterface.CurrentTemplate.gameObject);
                 switch (_buildInterface.SmallButton.GetComponent<Outline>().enabled,
                                 _buildInterface.MediumButton.GetComponent<Outline>().enabled,
@@ -68,10 +68,10 @@ internal class BuildLogick
                 {
                     case (true, false, false):
                         {
-                            sizeBuild = SizeBuildEnum.SmallBuilding;
+                            _sizeBuild = SizeBuildEnum.SmallBuilding;
                             if (GameFieldLogick.Instance.CheckClearSpaceForBuilding(_lastCell, SizeBuildEnum.SmallBuilding))
                             {
-                                
+
                                 _buildInterface.CurrentTemplate = MonoBehaviour.Instantiate(_buildInterface.GreenTemplate);
                                 _accept = true;
                             }
@@ -87,10 +87,10 @@ internal class BuildLogick
                         }
                     case (false, true, false):
                         {
-                            sizeBuild = SizeBuildEnum.MediumBuilding;
+                            _sizeBuild = SizeBuildEnum.MediumBuilding;
                             if (GameFieldLogick.Instance.CheckClearSpaceForBuilding(_lastCell, SizeBuildEnum.MediumBuilding))
                             {
-                   
+
                                 _buildInterface.CurrentTemplate = MonoBehaviour.Instantiate(_buildInterface.GreenTemplate);
                                 _accept = true;
                             }
@@ -106,10 +106,10 @@ internal class BuildLogick
                         }
                     case (false, false, true):
                         {
-                            sizeBuild = SizeBuildEnum.LargeBuilding;
+                            _sizeBuild = SizeBuildEnum.LargeBuilding;
                             if (GameFieldLogick.Instance.CheckClearSpaceForBuilding(_lastCell, SizeBuildEnum.LargeBuilding))
                             {
-                                
+
                                 _buildInterface.CurrentTemplate = MonoBehaviour.Instantiate(_buildInterface.GreenTemplate);
                                 _accept = true;
                             }

@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 
-internal class GameFieldMV : MonoBehaviour
+internal class GameFieldDraw : MonoBehaviour
 {
     #region Singleton
 
-    public static GameFieldMV Instance => _instance;
-    private static GameFieldMV _instance;
+    public static GameFieldDraw Instance => _instance;
+    private static GameFieldDraw _instance;
 
     #endregion
 

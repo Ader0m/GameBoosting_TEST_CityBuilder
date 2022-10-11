@@ -7,7 +7,7 @@ internal class TerraLogick
     private Camera _myCamera;
     private Ray _ray;
     private RaycastHit _hit;
-    private Cell cell;
+    private Cell _cell;
     private uint _lastClick;
 
 
@@ -19,9 +19,9 @@ internal class TerraLogick
 
     public void TerraLogickFunc()
     {
-        if(PlayerCamera.Instance.TryGetMyCamera(out _myCamera))
+        if (PlayerCamera.Instance.TryGetMyCamera(out _myCamera))
         {
-            _ray = _myCamera.ScreenPointToRay(Input.mousePosition);                       
+            _ray = _myCamera.ScreenPointToRay(Input.mousePosition);
             StartTerraforming();
         }
     }
@@ -32,15 +32,15 @@ internal class TerraLogick
         {
             if (Physics.Raycast(_ray, out _hit, 30f))
             {
-                if (_hit.collider.gameObject.TryGetComponent<Cell>(out cell))
+                if (_hit.collider.gameObject.TryGetComponent<Cell>(out _cell))
                 {
-                    if (cell.TypeCell == TypeCellEnum.Water)
+                    if (_cell.TypeCell == TypeCellEnum.Water)
                     {
-                        GameFieldLogick.Instance.SetSwampCell(new Vector2(cell.transform.position.x, cell.transform.position.z));
+                        GameFieldLogick.Instance.SetSwampCell(new Vector2(_cell.transform.position.x, _cell.transform.position.z));
                     }
-                    else if (cell.TypeCell == TypeCellEnum.Swamp)
+                    else if (_cell.TypeCell == TypeCellEnum.Swamp)
                     {
-                        GameFieldLogick.Instance.SetSandCell(new Vector2(cell.transform.position.x, cell.transform.position.z));
+                        GameFieldLogick.Instance.SetSandCell(new Vector2(_cell.transform.position.x, _cell.transform.position.z));
                     }
                 }
             }

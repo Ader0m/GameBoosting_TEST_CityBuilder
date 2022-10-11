@@ -17,7 +17,7 @@ public class InfoInterface : MonoBehaviour
 
     void Update()
     {
-        _infoLogick.InfoLogickFunc();                     
+        _infoLogick.InfoLogickFunc();
     }
 
     public void ShowInfo()
@@ -28,7 +28,7 @@ public class InfoInterface : MonoBehaviour
 
     public void DeleteBuilding()
     {
-        GameFieldMV.Instance.RemoveBuilding(_infoLogick.GetBuilding().GameObject());
+        GameFieldDraw.Instance.RemoveBuilding(_infoLogick.GetBuilding().GameObject());
         InfoMenuPanel.gameObject.SetActive(false);
     }
 }
