@@ -193,7 +193,7 @@ public class DesertBuilder : IBuilder
                     }
 
                     _currentCountSpawnObject++;
-                    SpawnCellRecursion(point, typeCellEnum, chanse);
+                    SpawnCellRecursion(new Vector2(point.x, point.y), typeCellEnum, chanse);
                 }
             }
         }
@@ -214,7 +214,7 @@ public class DesertBuilder : IBuilder
             point.x += 1;
         }
 
-        if (point.y + 1 < _size - 2)
+        if (point.y + 1 < _size - 1)
         {
             point.y += 1;
             SpawnCell();
