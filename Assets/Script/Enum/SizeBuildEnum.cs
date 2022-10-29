@@ -1,6 +1,6 @@
 ﻿using System;
 
-internal enum SizeBuildEnum
+public enum SizeBuildEnum
 {
     SmallBuilding = 1,
 	MediumBuilding = 2,
