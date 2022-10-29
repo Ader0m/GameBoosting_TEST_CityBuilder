@@ -21,7 +21,7 @@ internal class BuildLogick
         _buildInterface = buildInterface;
         _lastCell = new Vector2(-1, -1);
         _accept = false;
-        _buildInterface.CurrentTemplate = MonoBehaviour.Instantiate(_buildInterface.GreenTemplate);
+        _buildInterface.CurrentTemplate = MonoBehaviour.Instantiate(_buildInterface.CurrentTemplate);
         _buildInterface.CurrentTemplate.transform.position = new Vector3(-100, 0.5f, -100); // недостижимая точка при люом размере карты
     }
 
@@ -123,10 +123,12 @@ internal class BuildLogick
         if (GameFieldLogick.Instance.CheckClearSpaceForBuilding(_lastCell, sizeBuild))
         {
             _accept = true;
+            _buildInterface.CurrentTemplate.GetComponent<MeshRenderer>().material = _buildInterface.GreenMaterial;
         }
         else
         {
             _accept = false;
+            _buildInterface.CurrentTemplate.GetComponent<MeshRenderer>().material = _buildInterface.RedMaterial;
         }
         _buildInterface.CurrentTemplate.transform.localScale = Vector3.one * (int)sizeBuild;
     }
