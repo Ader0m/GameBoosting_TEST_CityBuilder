@@ -22,7 +22,7 @@ internal class BuildLogick
         _lastCell = new Vector2(-1, -1);
         _accept = false;
         _buildInterface.CurrentTemplate = MonoBehaviour.Instantiate(_buildInterface.GreenTemplate);
-        _buildInterface.CurrentTemplate.transform.position = new Vector3(-100, 0.5f, -100);
+        _buildInterface.CurrentTemplate.transform.position = new Vector3(-100, 0.5f, -100); // недостижимая точка при люом размере карты
     }
 
     public void BuildLogickFunc()
@@ -54,11 +54,10 @@ internal class BuildLogick
 
     public void PrepaireBuild()
     {
-
         if (_hit.collider.gameObject.TryGetComponent<Cell>(out _cell))
         {
-
             _pos = _cell.gameObject.transform.position;
+
             if ((_lastCell.x != _pos.x || _lastCell.y != _pos.z) && _pos != null)
             {
                 _lastCell.x = _pos.x;
@@ -72,63 +71,66 @@ internal class BuildLogick
                 {
                     case (true, false, false):
                         {
-                            _sizeBuild = SizeBuildEnum.SmallBuilding;
-                            if (GameFieldLogick.Instance.CheckClearSpaceForBuilding(_lastCell, SizeBuildEnum.SmallBuilding))
-                            {
-
-                                _buildInterface.CurrentTemplate = MonoBehaviour.Instantiate(_buildInterface.GreenTemplate);
-                                _accept = true;
-                            }
-                            else
-                            {
-                                _buildInterface.CurrentTemplate = MonoBehaviour.Instantiate(_buildInterface.RedTemplate);
-                                _accept = false;
-                            }
-                            _buildInterface.CurrentTemplate.transform.position = new Vector3(_lastCell.x, 0.5f, _lastCell.y);
-                            _buildInterface.CurrentTemplate.transform.localScale = Vector3.one * (int)SizeBuildEnum.SmallBuilding;
-
+                            SmallBuildGoust();
                             break;
                         }
                     case (false, true, false):
                         {
-                            _sizeBuild = SizeBuildEnum.MediumBuilding;
-                            if (GameFieldLogick.Instance.CheckClearSpaceForBuilding(_lastCell, SizeBuildEnum.MediumBuilding))
-                            {
-
-                                _buildInterface.CurrentTemplate = MonoBehaviour.Instantiate(_buildInterface.GreenTemplate);
-                                _accept = true;
-                            }
-                            else
-                            {
-                                _buildInterface.CurrentTemplate = MonoBehaviour.Instantiate(_buildInterface.RedTemplate);
-                                _accept = false;
-                            }
-                            _buildInterface.CurrentTemplate.transform.position = new Vector3(_lastCell.x + 0.5f, 1f, _lastCell.y + 0.5f);
-                            _buildInterface.CurrentTemplate.transform.localScale = Vector3.one * (int)SizeBuildEnum.MediumBuilding;
-
+                            MediumBuildGoust();
                             break;
                         }
                     case (false, false, true):
                         {
-                            _sizeBuild = SizeBuildEnum.LargeBuilding;
-                            if (GameFieldLogick.Instance.CheckClearSpaceForBuilding(_lastCell, SizeBuildEnum.LargeBuilding))
-                            {
-
-                                _buildInterface.CurrentTemplate = MonoBehaviour.Instantiate(_buildInterface.GreenTemplate);
-                                _accept = true;
-                            }
-                            else
-                            {
-                                _buildInterface.CurrentTemplate = MonoBehaviour.Instantiate(_buildInterface.RedTemplate);
-                                _accept = false;
-                            }
-                            _buildInterface.CurrentTemplate.transform.position = new Vector3(_lastCell.x, 1.5f, _lastCell.y);
-                            _buildInterface.CurrentTemplate.transform.localScale = Vector3.one * (int)SizeBuildEnum.LargeBuilding;
-
+                            LargeBuildGoust();
                             break;
                         }
                 }
             }
         }
+    }
+
+    private void SmallBuildGoust()
+    {
+        GoustTypeAndBuildAccess(SizeBuildEnum.SmallBuilding);
+
+        _buildInterface.CurrentTemplate.transform.position = new Vector3(_lastCell.x, 0.5f, _lastCell.y);       
+    }
+
+    private void MediumBuildGoust()
+    {
+        GoustTypeAndBuildAccess(SizeBuildEnum.MediumBuilding);
+
+        _buildInterface.CurrentTemplate.transform.position = new Vector3(_lastCell.x + 0.5f, 1f, _lastCell.y + 0.5f);
+    }
+
+    private void LargeBuildGoust()
+    {       
+        GoustTypeAndBuildAccess(SizeBuildEnum.LargeBuilding);
+
+        _buildInterface.CurrentTemplate.transform.position = new Vector3(_lastCell.x, 1.5f, _lastCell.y);
+    }
+
+    /// <summary>
+    /// Проверяет можно ли построить данное здание.
+    /// Спавнит призрака.
+    /// Выставляет ему размер, соответстующий строению.
+    /// </summary>
+    /// <param name="sizeBuild"></param>
+    private void GoustTypeAndBuildAccess(SizeBuildEnum sizeBuild)
+    {
+        _sizeBuild = sizeBuild;
+
+        if (GameFieldLogick.Instance.CheckClearSpaceForBuilding(_lastCell, sizeBuild))
+        {
+
+            _buildInterface.CurrentTemplate = MonoBehaviour.Instantiate(_buildInterface.GreenTemplate);
+            _accept = true;
+        }
+        else
+        {
+            _buildInterface.CurrentTemplate = MonoBehaviour.Instantiate(_buildInterface.RedTemplate);
+            _accept = false;
+        }
+        _buildInterface.CurrentTemplate.transform.localScale = Vector3.one * (int)sizeBuild;
     }
 }
