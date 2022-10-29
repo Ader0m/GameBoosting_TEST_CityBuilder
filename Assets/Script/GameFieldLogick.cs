@@ -246,53 +246,14 @@ internal class GameFieldLogick
     }
 
     /// <summary>
-    /// Выполняет все необходимые действия для регистрации в игре блока травы.
+    /// Выполняет все необходимые действия для регистрации в игре блока.
     /// </summary>
     /// <param name="point"> Точка применения </param>
-    public void SetGrassCell(Vector2 point)
+    public void SetCell(Vector2 point, TypeCellEnum typeCell)
     {
-        TypeGameFieldMass[(int)(point.x * SizeGameField + point.y)] = (int)TypeCellEnum.Grass;
+        TypeGameFieldMass[(int)(point.x * SizeGameField + point.y)] = (int)typeCell;
 
         BuildbleGameFieldMass[(int)(point.x * SizeGameField + point.y)] = true;
-
-        CellsMass[(int)(point.x * SizeGameField + point.y)].Refresh();
-    }
-
-    /// <summary>
-    /// Выполняет все необходимые действия для регистрации в игре блока песка.
-    /// </summary>
-    /// <param name="point"> Точка применения </param>
-    public void SetSandCell(Vector2 point)
-    {
-        TypeGameFieldMass[(int)(point.x * SizeGameField + point.y)] = (int)TypeCellEnum.Sand;
-
-        BuildbleGameFieldMass[(int)(point.x * SizeGameField + point.y)] = true;
-
-        CellsMass[(int)(point.x * SizeGameField + point.y)].Refresh();
-    }
-
-    /// <summary>
-    /// Выполняет все необходимые действия для регистрации в игре блока болота.
-    /// </summary>
-    /// <param name="point"> Точка применения </param>
-    public void SetSwampCell(Vector2 point)
-    {
-        TypeGameFieldMass[(int)(point.x * SizeGameField + point.y)] = (int)TypeCellEnum.Swamp;
-
-        BuildbleGameFieldMass[(int)(point.x * SizeGameField + point.y)] = false;
-
-        CellsMass[(int)(point.x * SizeGameField + point.y)].Refresh();
-    }
-
-    /// <summary>
-    /// Выполняет все необходимые действия для регистрации в игре блока воды.
-    /// </summary>
-    /// <param name="point"> Точка применения </param>
-    public void SetWaterCell(Vector2 point)
-    {
-        TypeGameFieldMass[(int)(point.x * SizeGameField + point.y)] = (int)TypeCellEnum.Water;
-
-        BuildbleGameFieldMass[(int)(point.x * SizeGameField + point.y)] = false;
 
         CellsMass[(int)(point.x * SizeGameField + point.y)].Refresh();
     }
