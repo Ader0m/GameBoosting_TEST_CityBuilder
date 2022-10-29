@@ -42,7 +42,7 @@ internal class GameFieldLogick
     /// </summary>
     /// <param name="point"> Точка применения </param>
     /// <param name="size"> Тип здания </param>
-    public void SetTownCell(Vector2 point, SizeBuildEnum size)
+    public void SetBuildingCell(Vector2 point, SizeBuildEnum size)
     {
         SetCellUnderBuilding(point, size, TypeCellEnum.Town);
     }
@@ -52,7 +52,7 @@ internal class GameFieldLogick
     /// </summary>
     /// <param name="point"> Точка применения </param>
     /// <param name="size"> Тип здания </param>
-    public void ClearTownCell(Vector2 point, SizeBuildEnum size)
+    public void ClearBuildingCell(Vector2 point, SizeBuildEnum size)
     {
         SetCellUnderBuilding(point, size, TypeCellEnum.Sand);
     }
