@@ -27,13 +27,17 @@ internal class BuildLogick
 
     public void BuildLogickFunc()
     {
-        if (PlayerCamera.Instance.TryGetMyCamera(out _myCamera))
+        if (_myCamera == null)
+        {
+            PlayerCamera.Instance.TryGetMyCamera(out _myCamera);
+        }
+        else
         {
             _ray = _myCamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(_ray, out _hit, 30f))
                 PrepaireBuild();
-        }
-
+        }                   
+      
         if (InputListener.Instance.RaycastBytton != _lastClick && _accept && !EventSystem.current.IsPointerOverGameObject())
         {
             Build();

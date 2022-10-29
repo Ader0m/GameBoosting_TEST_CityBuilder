@@ -19,11 +19,15 @@ internal class TerraLogick
 
     public void TerraLogickFunc()
     {
-        if (PlayerCamera.Instance.TryGetMyCamera(out _myCamera))
+        if (_myCamera == null)
+        {
+            PlayerCamera.Instance.TryGetMyCamera(out _myCamera);
+        }
+        else
         {
             _ray = _myCamera.ScreenPointToRay(Input.mousePosition);
             StartTerraforming();
-        }
+        }                       
     }
 
     private void StartTerraforming()

@@ -9,6 +9,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private RectTransform _gameInterface;
     [SerializeField] private RectTransform _buildInteface;
     [SerializeField] private RectTransform _terraInteface;
+    [SerializeField] private RectTransform _infoInterface;
     [SerializeField] private Button _playButton;
     [SerializeField] private Button _buildButton;
     [SerializeField] private Button _terraButton;
@@ -68,7 +69,9 @@ public class CanvasManager : MonoBehaviour
     {
         Game.Instance.SpawnPlayer();
         SwitchInterface();
+        _infoInterface.gameObject.SetActive(true);
         _playButton.gameObject.SetActive(false);
+
     }
 
     public void SaveWorld()
