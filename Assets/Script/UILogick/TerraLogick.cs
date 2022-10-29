@@ -36,11 +36,11 @@ internal class TerraLogick
                 {
                     if (_cell.TypeCell == TypeCellEnum.Water)
                     {
-                        GameFieldLogick.Instance.SetSwampCell(new Vector2(_cell.transform.position.x, _cell.transform.position.z));
+                        GameFieldLogick.Instance.SetCell(new Vector2(_cell.transform.position.x, _cell.transform.position.z), TypeCellEnum.Swamp);
                     }
                     else if (_cell.TypeCell == TypeCellEnum.Swamp)
                     {
-                        GameFieldLogick.Instance.SetSandCell(new Vector2(_cell.transform.position.x, _cell.transform.position.z));
+                        GameFieldLogick.Instance.SetCell(new Vector2(_cell.transform.position.x, _cell.transform.position.z), TypeCellEnum.Sand);
                     }
                 }
             }

@@ -26,7 +26,7 @@ public class DesertBuilder : IBuilder
 
             if (GameFieldLogick.Instance.TypeGameFieldMass[(int)(point.x * _size + point.y)] == (int)TypeCellEnum.Empty)
             {
-                GameFieldLogick.Instance.SetWaterCell(point);               
+                GameFieldLogick.Instance.SetCell(point, TypeCellEnum.Water);               
                 _currentCountSpawnObject++;
                 SpawnCellRecursion(point, TypeCellEnum.Water, 4);
             }
@@ -89,7 +89,7 @@ public class DesertBuilder : IBuilder
         {
             if (GameFieldLogick.Instance.TypeGameFieldMass[i] == (int)TypeCellEnum.Empty)
             {
-                GameFieldLogick.Instance.SetSandCell(new Vector2(i / 100, i % 100)); 
+                GameFieldLogick.Instance.SetCell(new Vector2(i / 100, i % 100), TypeCellEnum.Sand); 
             }
         }
 
@@ -109,7 +109,7 @@ public class DesertBuilder : IBuilder
                 {
                     if (GameFieldLogick.Instance.TypeGameFieldMass[i + _size] == (int)TypeCellEnum.Sand)
                     {
-                        GameFieldLogick.Instance.SetGrassCell(new Vector2(i / 100, i % 100));
+                        GameFieldLogick.Instance.SetCell(new Vector2(i / 100, i % 100), TypeCellEnum.Grass);
                         SpawnCellRecursion(new Vector2((i + _size) / _size, (i + _size) % _size), TypeCellEnum.Grass, 1);
                     }
                 }
@@ -119,7 +119,7 @@ public class DesertBuilder : IBuilder
                     if (GameFieldLogick.Instance.TypeGameFieldMass[i - _size] == (int)TypeCellEnum.Sand)
                     {
                         GameFieldLogick.Instance.TypeGameFieldMass[i - _size] = (int)TypeCellEnum.Grass;
-                        GameFieldLogick.Instance.SetGrassCell(new Vector2(i / 100, i % 100));
+                        GameFieldLogick.Instance.SetCell(new Vector2(i / 100, i % 100), TypeCellEnum.Grass);
                         SpawnCellRecursion(new Vector2((i - _size) / _size, (i - _size) % _size), TypeCellEnum.Grass, 1);
                     }
                 }
@@ -129,7 +129,7 @@ public class DesertBuilder : IBuilder
                     if (GameFieldLogick.Instance.TypeGameFieldMass[i + 1] == (int)TypeCellEnum.Sand)
                     {
                         GameFieldLogick.Instance.TypeGameFieldMass[i + 1] = (int)TypeCellEnum.Grass;
-                        GameFieldLogick.Instance.SetGrassCell(new Vector2(i / 100, i % 100));
+                        GameFieldLogick.Instance.SetCell(new Vector2(i / 100, i % 100), TypeCellEnum.Grass);
                         SpawnCellRecursion(new Vector2((i + 1) / _size, (i + 1) % _size), TypeCellEnum.Grass, 1);
                     }
                 }
@@ -139,7 +139,7 @@ public class DesertBuilder : IBuilder
                     if (GameFieldLogick.Instance.TypeGameFieldMass[i - 1] == (int)TypeCellEnum.Sand)
                     {
                         GameFieldLogick.Instance.TypeGameFieldMass[i - 1] = (int)TypeCellEnum.Grass;
-                        GameFieldLogick.Instance.SetGrassCell(new Vector2(i / 100, i % 100));
+                        GameFieldLogick.Instance.SetCell(new Vector2(i / 100, i % 100), TypeCellEnum.Grass);
                         SpawnCellRecursion(new Vector2((i - _size) / _size, (i - _size) % _size), TypeCellEnum.Grass, 1);
                     }
                 }
@@ -158,7 +158,7 @@ public class DesertBuilder : IBuilder
             Vector2 point = new Vector2(Random.Range(0, _size), Random.Range(0, _size));
             if (GameFieldLogick.Instance.TypeGameFieldMass[(int)(point.x * _size + point.y)] == (int)TypeCellEnum.Empty)
             {
-                GameFieldLogick.Instance.SetSwampCell(point);
+                GameFieldLogick.Instance.SetCell(point, TypeCellEnum.Swamp);
                 _currentCountSpawnObject++;
                 SpawnCellRecursion(point, TypeCellEnum.Swamp, 3);
             }

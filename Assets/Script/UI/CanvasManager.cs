@@ -24,7 +24,7 @@ public class CanvasManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !_playButton.gameObject.activeSelf)
         {
             SwitchInterface();
             PlayerCamera.Instance.SwitchCamera();
@@ -68,7 +68,7 @@ public class CanvasManager : MonoBehaviour
     {
         Game.Instance.SpawnPlayer();
         SwitchInterface();
-        Destroy(_playButton.gameObject);
+        _playButton.gameObject.SetActive(false);
     }
 
     public void SaveWorld()
