@@ -63,7 +63,7 @@ internal class BuildLogick
                 _lastCell.x = _pos.x;
                 _lastCell.y = _pos.z;
 
-                MonoBehaviour.Destroy(_buildInterface.CurrentTemplate.gameObject);
+                _buildInterface.CurrentTemplate.transform.position = new Vector3(-100, 0.5f, -100);
                 switch (_buildInterface.SmallButton.GetComponent<Outline>().enabled,
                                 _buildInterface.MediumButton.GetComponent<Outline>().enabled,
                                 _buildInterface.LargeButton.GetComponent<Outline>().enabled
@@ -122,13 +122,10 @@ internal class BuildLogick
 
         if (GameFieldLogick.Instance.CheckClearSpaceForBuilding(_lastCell, sizeBuild))
         {
-
-            _buildInterface.CurrentTemplate = MonoBehaviour.Instantiate(_buildInterface.GreenTemplate);
             _accept = true;
         }
         else
         {
-            _buildInterface.CurrentTemplate = MonoBehaviour.Instantiate(_buildInterface.RedTemplate);
             _accept = false;
         }
         _buildInterface.CurrentTemplate.transform.localScale = Vector3.one * (int)sizeBuild;

@@ -21,6 +21,9 @@ public class CanvasManager : MonoBehaviour
     {
         _menu.gameObject.SetActive(true);
         _gameInterface.gameObject.SetActive(false);
+        _buildInteface.GetComponent<BuildInterface>().Awake();
+        _terraInteface.GetComponent<TerraInterface>().Awake();
+        _infoInterface.GetComponent<InfoInterface>().Awake();
     }
 
     private void Update()
@@ -40,7 +43,7 @@ public class CanvasManager : MonoBehaviour
         _buildInteface.gameObject.GetComponent<BuildInterface>().OffButton();
         _terraInteface.gameObject.SetActive(false);
 
-        Destroy(_buildInteface.gameObject.GetComponent<BuildInterface>().CurrentTemplate);
+        _buildInteface.gameObject.GetComponent<BuildInterface>().CurrentTemplate.transform.position = new Vector3(-100, 0.5f, -100);
     }
 
     public void ShowBuildInteface()
@@ -51,7 +54,7 @@ public class CanvasManager : MonoBehaviour
         _terraButton.GetComponent<Outline>().enabled = false;
         _terraInteface.gameObject.SetActive(false);
 
-        Destroy(_buildInteface.gameObject.GetComponent<BuildInterface>().CurrentTemplate);
+        _buildInteface.gameObject.GetComponent<BuildInterface>().CurrentTemplate.transform.position = new Vector3(-100, 0.5f, -100);
     }
 
     public void ShowTerraInteface()
@@ -62,7 +65,7 @@ public class CanvasManager : MonoBehaviour
         _terraButton.GetComponent<Outline>().enabled = !_terraButton.GetComponent<Outline>().enabled;
         _terraInteface.gameObject.SetActive(!_terraInteface.gameObject.activeSelf);
 
-        Destroy(_buildInteface.gameObject.GetComponent<BuildInterface>().CurrentTemplate);
+        _buildInteface.gameObject.GetComponent<BuildInterface>().CurrentTemplate.transform.position = new Vector3(-100, 0.5f, -100);
     }
 
     public void SpawnPlayer()

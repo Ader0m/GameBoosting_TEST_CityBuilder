@@ -10,12 +10,12 @@ public class BuildInterface: MonoBehaviour
     [SerializeField] public GameObject RedTemplate;
     [SerializeField] public GameObject GreenTemplate;
     [SerializeField] public GameObject CurrentTemplate;
-    private BuildLogick buildLogick;
+    private BuildLogick _buildLogick;
 
 
-    void Start()
+    public void Awake()
     {        
-        buildLogick = new BuildLogick(this);
+        _buildLogick = new BuildLogick(this);
     }
 
     public void ActiveSmall()
@@ -48,6 +48,6 @@ public class BuildInterface: MonoBehaviour
 
     void Update()
     {        
-        buildLogick.BuildLogickFunc();
+        _buildLogick.BuildLogickFunc();
     }
 }
