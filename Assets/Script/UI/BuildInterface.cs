@@ -7,15 +7,15 @@ public class BuildInterface: MonoBehaviour
     [SerializeField] public Button SmallButton;
     [SerializeField] public Button MediumButton;
     [SerializeField] public Button LargeButton;
-    [SerializeField] public GameObject RedTemplate;
-    [SerializeField] public GameObject GreenTemplate;
+    [SerializeField] public Material RedMaterial;
+    [SerializeField] public Material GreenMaterial;
     [SerializeField] public GameObject CurrentTemplate;
-    private BuildLogick buildLogick;
+    private BuildLogick _buildLogick;
 
 
-    void Start()
+    public void Awake()
     {        
-        buildLogick = new BuildLogick(this);
+        _buildLogick = new BuildLogick(this);
     }
 
     public void ActiveSmall()
@@ -48,6 +48,6 @@ public class BuildInterface: MonoBehaviour
 
     void Update()
     {        
-        buildLogick.BuildLogickFunc();
+        _buildLogick.BuildLogickFunc();
     }
 }

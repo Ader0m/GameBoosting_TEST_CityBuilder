@@ -26,10 +26,15 @@ internal class InfoLogick
 
     public void InfoLogickFunc()
     {
-        if (InputListener.Instance.RaycastBytton != _lastClick && !EventSystem.current.IsPointerOverGameObject())
+        if (_myCamera == null)
         {
-            if (PlayerCamera.Instance.TryGetMyCamera(out _myCamera))
+            PlayerCamera.Instance.TryGetMyCamera(out _myCamera);
+        }
+        else
+        {
+            if (InputListener.Instance.RaycastBytton != _lastClick && !EventSystem.current.IsPointerOverGameObject())
             {
+
                 _ray = _myCamera.ScreenPointToRay(Input.mousePosition);
 
                 if (Physics.Raycast(_ray, out _hit, 30f))
@@ -49,6 +54,7 @@ internal class InfoLogick
                 }
             }
         }
+        
 
         _lastClick = InputListener.Instance.RaycastBytton;
     }

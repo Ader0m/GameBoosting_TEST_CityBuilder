@@ -38,153 +38,23 @@ internal class GameFieldLogick
     }
 
     /// <summary>
-    /// Выполняет все необходимые действия для регистрации в игре новых блоков города. Не создает здание
-    /// </summary>
-    /// <param name="point"> Точка установки </param>
-    /// <param name="size"> Тип здания </param>
-    public void SetTownCell(Vector2 point, SizeBuildEnum size)
-    {
-        switch (size)
-        {
-            case SizeBuildEnum.SmallBuilding:
-                {
-                    TypeGameFieldMass[(int)(point.x * SizeGameField + point.y)] = (int)TypeCellEnum.Town;
-
-                    BuildbleGameFieldMass[(int)(point.x * SizeGameField + point.y)] = false;
-
-                    CellsMass[(int)(point.x * SizeGameField + point.y)].Refresh();
-
-                    break;
-                }
-            case SizeBuildEnum.MediumBuilding:
-                {
-                    TypeGameFieldMass[(int)(point.x * SizeGameField + point.y)] = (int)TypeCellEnum.Town;
-                    TypeGameFieldMass[(int)((point.x + 1) * SizeGameField + point.y)] = (int)TypeCellEnum.Town;
-                    TypeGameFieldMass[(int)((point.x + 1) * SizeGameField + (point.y + 1))] = (int)TypeCellEnum.Town;
-                    TypeGameFieldMass[(int)(point.x * SizeGameField + (point.y + 1))] = (int)TypeCellEnum.Town;
-
-                    BuildbleGameFieldMass[(int)(point.x * SizeGameField + point.y)] = false;
-                    BuildbleGameFieldMass[(int)((point.x + 1) * SizeGameField + point.y)] = false;
-                    BuildbleGameFieldMass[(int)((point.x + 1) * SizeGameField + (point.y + 1))] = false;
-                    BuildbleGameFieldMass[(int)(point.x * SizeGameField + (point.y + 1))] = false;
-
-                    CellsMass[(int)(point.x * SizeGameField + point.y)].Refresh();
-                    CellsMass[(int)((point.x + 1) * SizeGameField + point.y)].Refresh();
-                    CellsMass[(int)((point.x + 1) * SizeGameField + (point.y + 1))].Refresh();
-                    CellsMass[(int)(point.x * SizeGameField + (point.y + 1))].Refresh();
-
-                    break;
-                }
-            case SizeBuildEnum.LargeBuilding:
-                {
-                    TypeGameFieldMass[(int)(point.x * SizeGameField + point.y)] = (int)TypeCellEnum.Town; //центр                   
-                    TypeGameFieldMass[(int)((point.x + 1) * SizeGameField + point.y)] = (int)TypeCellEnum.Town; //север                    
-                    TypeGameFieldMass[(int)((point.x + 1) * SizeGameField + (point.y + 1))] = (int)TypeCellEnum.Town; //северо-восток                    
-                    TypeGameFieldMass[(int)(point.x * SizeGameField + (point.y + 1))] = (int)TypeCellEnum.Town; // восток                    
-                    TypeGameFieldMass[(int)((point.x - 1) * SizeGameField + (point.y + 1))] = (int)TypeCellEnum.Town; // юго-восток                    
-                    TypeGameFieldMass[(int)((point.x - 1) * SizeGameField + point.y)] = (int)TypeCellEnum.Town; // юг
-                    TypeGameFieldMass[(int)((point.x - 1) * SizeGameField + (point.y - 1))] = (int)TypeCellEnum.Town; // юго-запад
-                    TypeGameFieldMass[(int)(point.x * SizeGameField + (point.y - 1))] = (int)TypeCellEnum.Town; // запад
-                    TypeGameFieldMass[(int)((point.x + 1) * SizeGameField + (point.y - 1))] = (int)TypeCellEnum.Town; // Северо-запад
-
-                    BuildbleGameFieldMass[(int)(point.x * SizeGameField + point.y)] = false;
-                    BuildbleGameFieldMass[(int)((point.x + 1) * SizeGameField + point.y)] = false;
-                    BuildbleGameFieldMass[(int)((point.x + 1) * SizeGameField + (point.y + 1))] = false;
-                    BuildbleGameFieldMass[(int)(point.x * SizeGameField + (point.y + 1))] = false;
-                    BuildbleGameFieldMass[(int)((point.x - 1) * SizeGameField + (point.y + 1))] = false;
-                    BuildbleGameFieldMass[(int)((point.x - 1) * SizeGameField + point.y)] = false;
-                    BuildbleGameFieldMass[(int)((point.x - 1) * SizeGameField + (point.y - 1))] = false;
-                    BuildbleGameFieldMass[(int)(point.x * SizeGameField + (point.y - 1))] = false;
-                    BuildbleGameFieldMass[(int)((point.x + 1) * SizeGameField + (point.y - 1))] = false;
-
-                    CellsMass[(int)(point.x * SizeGameField + point.y)].Refresh();
-                    CellsMass[(int)((point.x + 1) * SizeGameField + point.y)].Refresh();
-                    CellsMass[(int)((point.x + 1) * SizeGameField + (point.y + 1))].Refresh();
-                    CellsMass[(int)(point.x * SizeGameField + (point.y + 1))].Refresh();
-                    CellsMass[(int)((point.x - 1) * SizeGameField + (point.y + 1))].Refresh();
-                    CellsMass[(int)((point.x - 1) * SizeGameField + point.y)].Refresh();
-                    CellsMass[(int)((point.x - 1) * SizeGameField + (point.y - 1))].Refresh();
-                    CellsMass[(int)(point.x * SizeGameField + (point.y - 1))].Refresh();
-                    CellsMass[(int)((point.x + 1) * SizeGameField + (point.y - 1))].Refresh();
-
-                    break;
-                }
-        }
-    }
-
-    /// <summary>
-    /// Выполняет все необходимые действия для удалении в игре блоков города. Не удаляет здание
+    /// Редирект для блокирования клеток под зданием
     /// </summary>
     /// <param name="point"> Точка применения </param>
     /// <param name="size"> Тип здания </param>
-    public void ClearTownCell(Vector2 point, SizeBuildEnum size)
+    public void SetBuildingCell(Vector2 point, SizeBuildEnum size)
     {
-        switch (size)
-        {
-            case SizeBuildEnum.SmallBuilding:
-                {
-                    TypeGameFieldMass[(int)(point.x * SizeGameField + point.y)] = (int)TypeCellEnum.Sand;
+        SetCellUnderBuilding(point, size, TypeCellEnum.Town);
+    }
 
-                    BuildbleGameFieldMass[(int)(point.x * SizeGameField + point.y)] = true;
-
-                    CellsMass[(int)(point.x * SizeGameField + point.y)].Refresh();
-
-                    break;
-                }
-            case SizeBuildEnum.MediumBuilding:
-                {
-                    TypeGameFieldMass[(int)(point.x * SizeGameField + point.y)] = (int)TypeCellEnum.Sand;
-                    TypeGameFieldMass[(int)((point.x + 1) * SizeGameField + point.y)] = (int)TypeCellEnum.Sand;
-                    TypeGameFieldMass[(int)((point.x + 1) * SizeGameField + (point.y + 1))] = (int)TypeCellEnum.Sand;
-                    TypeGameFieldMass[(int)(point.x * SizeGameField + (point.y + 1))] = (int)TypeCellEnum.Sand;
-
-                    BuildbleGameFieldMass[(int)(point.x * SizeGameField + point.y)] = true;
-                    BuildbleGameFieldMass[(int)((point.x + 1) * SizeGameField + point.y)] = true;
-                    BuildbleGameFieldMass[(int)((point.x + 1) * SizeGameField + (point.y + 1))] = true;
-                    BuildbleGameFieldMass[(int)(point.x * SizeGameField + (point.y + 1))] = true;
-
-                    CellsMass[(int)(point.x * SizeGameField + point.y)].Refresh();
-                    CellsMass[(int)((point.x + 1) * SizeGameField + point.y)].Refresh();
-                    CellsMass[(int)((point.x + 1) * SizeGameField + (point.y + 1))].Refresh();
-                    CellsMass[(int)(point.x * SizeGameField + (point.y + 1))].Refresh();
-
-                    break;
-                }
-            case SizeBuildEnum.LargeBuilding:
-                {
-                    TypeGameFieldMass[(int)(point.x * SizeGameField + point.y)] = (int)TypeCellEnum.Sand;     //центр     
-                    TypeGameFieldMass[(int)((point.x + 1) * SizeGameField + point.y)] = (int)TypeCellEnum.Sand;      //север            
-                    TypeGameFieldMass[(int)((point.x + 1) * SizeGameField + (point.y + 1))] = (int)TypeCellEnum.Sand; //северо-восток
-                    TypeGameFieldMass[(int)(point.x * SizeGameField + (point.y + 1))] = (int)TypeCellEnum.Sand; // восток
-                    TypeGameFieldMass[(int)((point.x - 1) * SizeGameField + (point.y + 1))] = (int)TypeCellEnum.Sand; // юго-восток
-                    TypeGameFieldMass[(int)((point.x - 1) * SizeGameField + point.y)] = (int)TypeCellEnum.Sand; // юг
-                    TypeGameFieldMass[(int)((point.x - 1) * SizeGameField + (point.y - 1))] = (int)TypeCellEnum.Sand; // юго-запад
-                    TypeGameFieldMass[(int)(point.x * SizeGameField + (point.y - 1))] = (int)TypeCellEnum.Sand; // запад
-                    TypeGameFieldMass[(int)((point.x + 1) * SizeGameField + (point.y - 1))] = (int)TypeCellEnum.Sand; // Северо-запад
-
-                    BuildbleGameFieldMass[(int)(point.x * SizeGameField + point.y)] = true;
-                    BuildbleGameFieldMass[(int)((point.x + 1) * SizeGameField + point.y)] = true;
-                    BuildbleGameFieldMass[(int)((point.x + 1) * SizeGameField + (point.y + 1))] = true;
-                    BuildbleGameFieldMass[(int)(point.x * SizeGameField + (point.y + 1))] = true;
-                    BuildbleGameFieldMass[(int)((point.x - 1) * SizeGameField + (point.y + 1))] = true;
-                    BuildbleGameFieldMass[(int)((point.x - 1) * SizeGameField + point.y)] = true;
-                    BuildbleGameFieldMass[(int)((point.x - 1) * SizeGameField + (point.y - 1))] = true;
-                    BuildbleGameFieldMass[(int)(point.x * SizeGameField + (point.y - 1))] = true;
-                    BuildbleGameFieldMass[(int)((point.x + 1) * SizeGameField + (point.y - 1))] = true;
-
-                    CellsMass[(int)(point.x * SizeGameField + point.y)].Refresh();
-                    CellsMass[(int)((point.x + 1) * SizeGameField + point.y)].Refresh();
-                    CellsMass[(int)((point.x + 1) * SizeGameField + (point.y + 1))].Refresh();
-                    CellsMass[(int)(point.x * SizeGameField + (point.y + 1))].Refresh();
-                    CellsMass[(int)((point.x - 1) * SizeGameField + (point.y + 1))].Refresh();
-                    CellsMass[(int)((point.x - 1) * SizeGameField + point.y)].Refresh();
-                    CellsMass[(int)((point.x - 1) * SizeGameField + (point.y - 1))].Refresh();
-                    CellsMass[(int)(point.x * SizeGameField + (point.y - 1))].Refresh();
-                    CellsMass[(int)((point.x + 1) * SizeGameField + (point.y - 1))].Refresh();
-
-                    break;
-                }
-        }
+    /// <summary>
+    /// Редирект для очистки клеток под зданием
+    /// </summary>
+    /// <param name="point"> Точка применения </param>
+    /// <param name="size"> Тип здания </param>
+    public void ClearBuildingCell(Vector2 point, SizeBuildEnum size)
+    {
+        SetCellUnderBuilding(point, size, TypeCellEnum.Sand);
     }
 
     /// <summary>
@@ -246,55 +116,63 @@ internal class GameFieldLogick
     }
 
     /// <summary>
-    /// Выполняет все необходимые действия для регистрации в игре блока травы.
+    /// Выполняет все необходимые действия для регистрации в игре блока.
     /// </summary>
     /// <param name="point"> Точка применения </param>
-    public void SetGrassCell(Vector2 point)
+    public void SetCell(Vector2 point, TypeCellEnum typeCell)
     {
-        TypeGameFieldMass[(int)(point.x * SizeGameField + point.y)] = (int)TypeCellEnum.Grass;
+        TypeGameFieldMass[(int)(point.x * SizeGameField + point.y)] = (int)typeCell;
 
-        BuildbleGameFieldMass[(int)(point.x * SizeGameField + point.y)] = true;
+        if (typeCell == TypeCellEnum.Grass || typeCell == TypeCellEnum.Sand)
+            BuildbleGameFieldMass[(int)(point.x * SizeGameField + point.y)] = true;
+        else
+        {
+            BuildbleGameFieldMass[(int)(point.x * SizeGameField + point.y)] = false;
+        }
 
         CellsMass[(int)(point.x * SizeGameField + point.y)].Refresh();
     }
 
     /// <summary>
-    /// Выполняет все необходимые действия для регистрации в игре блока песка.
+    /// Регистрирует изменения блоков связанные со зданиями
+    /// Вызывает функцию для регистрации всех блоков нужного типа. Не создает здание
     /// </summary>
-    /// <param name="point"> Точка применения </param>
-    public void SetSandCell(Vector2 point)
+    /// <param name="point"> Точка установки </param>
+    /// <param name="size"> Тип здания </param>
+    private void SetCellUnderBuilding(Vector2 point, SizeBuildEnum size, TypeCellEnum typeCell)
     {
-        TypeGameFieldMass[(int)(point.x * SizeGameField + point.y)] = (int)TypeCellEnum.Sand;
+        switch (size)
+        {
+            case SizeBuildEnum.SmallBuilding:
+                {
+                    SetCell(point, typeCell);
 
-        BuildbleGameFieldMass[(int)(point.x * SizeGameField + point.y)] = true;
+                    break;
+                }
+            case SizeBuildEnum.MediumBuilding:
+                {
+                    SetCell(point, typeCell);
+                    SetCell(new Vector2(point.x + 1, point.y), typeCell);
+                    SetCell(new Vector2(point.x + 1, point.y + 1), typeCell);
+                    SetCell(new Vector2(point.x, point.y + 1), typeCell);
 
-        CellsMass[(int)(point.x * SizeGameField + point.y)].Refresh();
-    }
+                    break;
+                }
+            case SizeBuildEnum.LargeBuilding:
+                {
+                    SetCell(point, typeCell); //центр 
+                    SetCell(new Vector2(point.x + 1, point.y), typeCell); //север 
+                    SetCell(new Vector2(point.x + 1, point.y + 1), typeCell); //северо-восток 
+                    SetCell(new Vector2(point.x - 1, point.y + 1), typeCell); // восток    
+                    SetCell(new Vector2(point.x, point.y + 1), typeCell); // юго-восток 
+                    SetCell(new Vector2(point.x - 1, point.y), typeCell); // юг    
+                    SetCell(new Vector2(point.x - 1, point.y - 1), typeCell);   // юго-запад
+                    SetCell(new Vector2(point.x, point.y - 1), typeCell); // запад
+                    SetCell(new Vector2(point.x + 1, point.y - 1), typeCell); // Северо-запад
 
-    /// <summary>
-    /// Выполняет все необходимые действия для регистрации в игре блока болота.
-    /// </summary>
-    /// <param name="point"> Точка применения </param>
-    public void SetSwampCell(Vector2 point)
-    {
-        TypeGameFieldMass[(int)(point.x * SizeGameField + point.y)] = (int)TypeCellEnum.Swamp;
-
-        BuildbleGameFieldMass[(int)(point.x * SizeGameField + point.y)] = false;
-
-        CellsMass[(int)(point.x * SizeGameField + point.y)].Refresh();
-    }
-
-    /// <summary>
-    /// Выполняет все необходимые действия для регистрации в игре блока воды.
-    /// </summary>
-    /// <param name="point"> Точка применения </param>
-    public void SetWaterCell(Vector2 point)
-    {
-        TypeGameFieldMass[(int)(point.x * SizeGameField + point.y)] = (int)TypeCellEnum.Water;
-
-        BuildbleGameFieldMass[(int)(point.x * SizeGameField + point.y)] = false;
-
-        CellsMass[(int)(point.x * SizeGameField + point.y)].Refresh();
+                    break;
+                }
+        }
     }
 
     [Serializable]

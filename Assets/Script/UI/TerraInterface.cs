@@ -5,7 +5,7 @@ public class TerraInterface : MonoBehaviour
     private TerraLogick _terraLogick;
 
 
-    void Start()
+    public void Awake()
     {
         _terraLogick = new TerraLogick(this);
     }

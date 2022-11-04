@@ -1,4 +1,4 @@
-﻿internal enum TypeCellEnum
+﻿public enum TypeCellEnum
 {
     Empty = 0,
     Water = 1,

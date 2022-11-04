@@ -10,7 +10,7 @@ public class InfoInterface : MonoBehaviour
     private InfoLogick _infoLogick;
 
 
-    void Awake()
+    public void Awake()
     {
         _infoLogick = new InfoLogick(this);
     }

@@ -28,46 +28,53 @@ internal class GameFieldDraw : MonoBehaviour
 
     /// <summary>
     /// Производит все необходимые действия для появлеия здания в игре. Регистрирует здание с помощью функции 
-    /// GameFieldLogick.Instance.SetTownCell(point, size);
+    /// GameFieldLogick.Instance.SetBuildingCell(point, size);
     /// </summary>
     /// <param name="point"> Точка применения </param>
     /// <param name="size"> Тип здания </param>
     public void AddBuilding(Vector2 point, SizeBuildEnum size)
     {
-        GameFieldLogick.Instance.SetTownCell(point, size);
+        GameFieldLogick.Instance.SetBuildingCell(point, size);
         switch (size)
         {
             case SizeBuildEnum.SmallBuilding:
                 {
                     GameObject obj = Instantiate(_smallBuild, _buildingLayer);
-                    obj.GetComponent<Building>().SetPoint(point);
-                    obj.GetComponent<Building>().SetSizeBuild(size);
-                    obj.transform.position = new Vector3(obj.transform.position.x + point.x, obj.transform.position.y,
-                        obj.transform.position.z + point.y);
-                    GameFieldLogick.Instance.BuildingList.Add(obj);
+                    SpawnBuildingOnMap(obj, point, size);
+
                     break;
                 }
             case SizeBuildEnum.MediumBuilding:
                 {
                     GameObject obj = Instantiate(_mediumBuild, _buildingLayer);
-                    obj.GetComponent<Building>().SetPoint(point);
-                    obj.GetComponent<Building>().SetSizeBuild(size);
-                    obj.transform.position = new Vector3(obj.transform.position.x + point.x, obj.transform.position.y,
-                        obj.transform.position.z + point.y);
-                    GameFieldLogick.Instance.BuildingList.Add(obj);
+                    SpawnBuildingOnMap(obj, point, size);
+
                     break;
                 }
             case SizeBuildEnum.LargeBuilding:
                 {
                     GameObject obj = Instantiate(_largeBuild, _buildingLayer);
-                    obj.GetComponent<Building>().SetPoint(point);
-                    obj.GetComponent<Building>().SetSizeBuild(size);
-                    obj.transform.position = new Vector3(obj.transform.position.x + point.x, obj.transform.position.y,
-                        obj.transform.position.z + point.y);
-                    GameFieldLogick.Instance.BuildingList.Add(obj);
+                    SpawnBuildingOnMap(obj, point, size);
+
                     break;
                 }
         }
+    }
+
+    /// <summary>
+    /// Размещает префаб на карте.
+    /// Добавляет в лист зданий.
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="point"></param>
+    /// <param name="size"></param>
+    private void SpawnBuildingOnMap(GameObject obj, Vector2 point, SizeBuildEnum size)
+    {
+        obj.GetComponent<Building>().SetPoint(point);
+        obj.GetComponent<Building>().SetSizeBuild(size);
+        obj.transform.position = new Vector3(obj.transform.position.x + point.x, obj.transform.position.y,
+            obj.transform.position.z + point.y);
+        GameFieldLogick.Instance.BuildingList.Add(obj);
     }
 
     /// <summary>
@@ -79,7 +86,7 @@ internal class GameFieldDraw : MonoBehaviour
     {
         GameFieldLogick.Instance.BuildingList.Remove(building);
 
-        GameFieldLogick.Instance.ClearTownCell(new Vector2(building.GetComponent<IBuilding>().GetPoint().x,
+        GameFieldLogick.Instance.ClearBuildingCell(new Vector2(building.GetComponent<IBuilding>().GetPoint().x,
                                                 building.GetComponent<IBuilding>().GetPoint().y), building.GetComponent<IBuilding>().GetSizeBuild());
         Destroy(building);        
     }

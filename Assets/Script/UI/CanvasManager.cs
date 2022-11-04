@@ -9,6 +9,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private RectTransform _gameInterface;
     [SerializeField] private RectTransform _buildInteface;
     [SerializeField] private RectTransform _terraInteface;
+    [SerializeField] private RectTransform _infoInterface;
     [SerializeField] private Button _playButton;
     [SerializeField] private Button _buildButton;
     [SerializeField] private Button _terraButton;
@@ -20,11 +21,14 @@ public class CanvasManager : MonoBehaviour
     {
         _menu.gameObject.SetActive(true);
         _gameInterface.gameObject.SetActive(false);
+        _buildInteface.GetComponent<BuildInterface>().Awake();
+        _terraInteface.GetComponent<TerraInterface>().Awake();
+        _infoInterface.GetComponent<InfoInterface>().Awake();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !_playButton.gameObject.activeSelf)
         {
             SwitchInterface();
             PlayerCamera.Instance.SwitchCamera();
@@ -39,7 +43,7 @@ public class CanvasManager : MonoBehaviour
         _buildInteface.gameObject.GetComponent<BuildInterface>().OffButton();
         _terraInteface.gameObject.SetActive(false);
 
-        Destroy(_buildInteface.gameObject.GetComponent<BuildInterface>().CurrentTemplate);
+        _buildInteface.gameObject.GetComponent<BuildInterface>().CurrentTemplate.transform.position = new Vector3(-100, 0.5f, -100);
     }
 
     public void ShowBuildInteface()
@@ -50,7 +54,7 @@ public class CanvasManager : MonoBehaviour
         _terraButton.GetComponent<Outline>().enabled = false;
         _terraInteface.gameObject.SetActive(false);
 
-        Destroy(_buildInteface.gameObject.GetComponent<BuildInterface>().CurrentTemplate);
+        _buildInteface.gameObject.GetComponent<BuildInterface>().CurrentTemplate.transform.position = new Vector3(-100, 0.5f, -100);
     }
 
     public void ShowTerraInteface()
@@ -61,14 +65,16 @@ public class CanvasManager : MonoBehaviour
         _terraButton.GetComponent<Outline>().enabled = !_terraButton.GetComponent<Outline>().enabled;
         _terraInteface.gameObject.SetActive(!_terraInteface.gameObject.activeSelf);
 
-        Destroy(_buildInteface.gameObject.GetComponent<BuildInterface>().CurrentTemplate);
+        _buildInteface.gameObject.GetComponent<BuildInterface>().CurrentTemplate.transform.position = new Vector3(-100, 0.5f, -100);
     }
 
     public void SpawnPlayer()
     {
         Game.Instance.SpawnPlayer();
         SwitchInterface();
-        Destroy(_playButton.gameObject);
+        _infoInterface.gameObject.SetActive(true);
+        _playButton.gameObject.SetActive(false);
+
     }
 
     public void SaveWorld()
